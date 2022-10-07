@@ -1,13 +1,13 @@
-const generateRandomNumber = (min, max) => {
-    if (min >= max) {
-      throw new Error('Max(string is less or equals the min(string');
+const generateRandomNumber = (minimum, maximum) => {
+    if (minimum >= maximum) {
+      throw new Error('Max(string is less or equals the minimum(string');
     }
-    if (min < 0 || max < 0) {
+    if (minimum < 0 || maximum < 0) {
       throw new Error('Negative range');
     }
-    const min = Math.ceil(min);
-    const max = Math.floor(max);
-    return Math.floor(Math.random() * (max - min + 1)) + min;
+    const minimum = Math.ceil(minimum);
+    const maximum = Math.floor(maximum);
+    return Math.floor(Math.random() *  maximum - minimum + 1)) + minimum;
   };
 
 const isUnderMaximum = (string, maxLength) => maxLength >=(string.length);
