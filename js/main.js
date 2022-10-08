@@ -5,8 +5,8 @@ const generateRandomNumber = (minimum, maximum) => {
     if (minimum < 0 || maximum < 0) {
       throw new Error('Negative range');
     }
-    const minimum = Math.ceil(minimum);
-    const maximum = Math.floor(maximum);
+    minimum = Math.ceil(minimum);
+    maximum = Math.floor(maximum);
     return Math.floor(Math.random() *  maximum - minimum + 1)) + minimum;
   };
 
