@@ -24,16 +24,16 @@ const MESSAGES = [
 
 
 const generateRandomNumber = (minimum, maximum) => {
-    if (minimum >= maximum) {
-      throw new Error('Max string is less or equals the minimum string');
-    }
-    if (minimum < 0 || maximum < 0) {
-      throw new Error('Negative range');
-    }
-    minimum = Math.ceil(minimum);
-    maximum = Math.floor(maximum);
-    return Math.floor(Math.random() *  maximum - minimum + 1) + minimum;
-  };
+  if (minimum >= maximum) {
+    throw new Error('Max string is less or equals the minimum string');
+  }
+  if (minimum < 0 || maximum < 0) {
+    throw new Error('Negative range');
+  }
+  minimum = Math.ceil(minimum);
+  maximum = Math.floor(maximum);
+  return Math.floor(Math.random() *  maximum - minimum + 1) + minimum;
+};
 
 const isUnderMaximum = (string, maxLength) => maxLength >= (string.length);
 
