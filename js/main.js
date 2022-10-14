@@ -1,12 +1,17 @@
 const DESCRIPTIONS = [
-  'Lovely day', 'Nice weather', 'Working on project', 'Outdoor weekend', 
-  'Everything in its right place', 'Hanging out with family', 'My new car',
-  'Enjoying the sun', 'I love Italy', '*Some random description*'
+  'Lovely day',
+  'Nice weather',
+  'Working on project',
+  'Outdoor weekend',
+  'Everything in its right place',
+  'Hanging out with family',
+  'My new car',
+  'Enjoying the sun',
+  'I love Italy',
+  '*Some random description*'
 ];
 
-const NAMES = [
-  'Georgy', 'Sacha', 'Max', 'Benj', 'Josh', 'Drew', 'Callum', 'Toby' 
-];
+const NAMES = ['Georgy', 'Sacha', 'Max', 'Benj', 'Josh', 'Drew', 'Callum', 'Toby'];
 
 const MESSAGES = [
   'Всё отлично!',
