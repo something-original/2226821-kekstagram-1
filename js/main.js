@@ -49,8 +49,7 @@ const addComment = () => ({
 const createDescription = (id) => ({
   id: id,
   url: `photos/${id}.jpg`,
-  description: getRandomElem
-  (DESCRIPTIONS),
+  description: getRandomElem(DESCRIPTIONS),
   likes: generateRandomNumber(15, 200),
   comments: Array.from({length: generateRandomNumber(1, 6)}, addComment)
 });
