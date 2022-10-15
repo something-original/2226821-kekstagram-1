@@ -56,5 +56,3 @@ const createDescription = (id) => ({
 
 Array.from({length: 25}, createDescription);
 
-generateRandomNumber(83, 505); //test
-isUnderMaximum('Something original', 15);//test
