@@ -35,6 +35,7 @@ const generateRandomNumber = (minimum, maximum) => {
   return Math.floor(Math.random() *  maximum - minimum + 1) + minimum;
 };
 
+// eslint-disable-next-line no-unused-vars
 const isUnderMaximum = (string, maxLength) => maxLength >= (string.length);
 
 const getRandomElem = (elements) => elements[generateRandomNumber(0, elements.length - 1)];
@@ -49,13 +50,10 @@ const addComment = () => ({
 const createDescription = (id) => ({
   id: id,
   url: `photos/${id}.jpg`,
-  description: getRandomElem
-  (DESCRIPTIONS),
+  description: getRandomElem(DESCRIPTIONS),
   likes: generateRandomNumber(15, 200),
   comments: Array.from({length: generateRandomNumber(1, 6)}, addComment)
 });
 
 Array.from({length: 25}, createDescription);
 
-generateRandomNumber(83, 505); //test
-isUnderMaximum('Something original', 15);//test
