@@ -1,5 +1,4 @@
-import {DESCRIPTIONS, NAMES, MESSAGES} from './data.js'
-import {generateRandomNumber, isUnderMaximum, getRandomElem, addComment, createDescription} from './util.js'
-
-Array.from({length: 25}, createDescription);
-
+import {createDescriptions} from './data.js'
+const descriptions = createDescriptions();
+// eslint-disable-next-line no-console
+console.log(descriptions);
