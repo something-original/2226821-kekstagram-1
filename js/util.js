@@ -24,4 +24,6 @@ const getRandomId = (arrayOfNum) => {
   }
 }  
 
-export {generateRandomNumber, isUnderMaximum, getRandomElem, addComment, createDescription, getRandomId};
+const isEscapeKey = (evt) => evt.key === 'Escape';
+
+export {generateRandomNumber, isUnderMaximum, getRandomElem, addComment, createDescription, getRandomId, isEscapeKey};
