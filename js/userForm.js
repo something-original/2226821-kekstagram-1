@@ -1,7 +1,7 @@
 import { isEscapeKey } from "./util.js";
 import { scaleControlValue } from "./scale.js";
 import { changeEffect, removeFilter } from "./filters.js";
-import { sendData } from "./api.js";
+import { send } from "./api.js";
 import { isValid } from "./validation.js";
 
 const imageUploadStart  = document.querySelector('.img-upload__start');
@@ -95,7 +95,7 @@ const verifyForm = (evt) => {
   evt.preventDefault();
   if (isValid()) {
     imageUploadSubmit.disable = true;
-    sendData(success, fail, new FormData(evt.target));
+    send(success, fail, new FormData(evt.target));
   }
 };
 

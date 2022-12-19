@@ -1,5 +1,5 @@
 const MAX_COMMENT_LENGTH = 140;
-const COMMENTS_REGEX =  /^#[0-9a-zA-Zа-яА-ЯёЁ]{1,19}$/;
+const HASHTAG_REGEX =  /^#[0-9a-zA-Zа-яА-ЯёЁ]{1,19}$/;
 
 const generateRandomNumber = (minimum, maximum) => {
     if (minimum >= maximum) {
@@ -44,4 +44,4 @@ const debounce = (callback, timeoutDelay = 500) => {
   }
 };
 
-export {MAX_COMMENT_LENGTH, COMMENTS_REGEX, generateRandomNumber, isUnderMaximum, getRandomElem, addComment, createDescription, getRandomId, isEscapeKey, debounce};
+export {MAX_COMMENT_LENGTH, HASHTAG_REGEX, generateRandomNumber, isUnderMaximum, getRandomElem, getRandomId, isEscapeKey, debounce};

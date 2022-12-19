@@ -1,4 +1,4 @@
-import { addBigPicture, bigPictureElement, resetComments } from './big-pictures';
+import { addBigPicture, bigPicture, resetComments } from './big-pictures';
 import { isEscapeKey, getRandomElem, debounce } from './util.js';
 
 const TIMEOUT_DELAY = 500;
@@ -25,9 +25,9 @@ const removeComments = () => {
 
 const closeBigPicture = () => {
   removeComments();
-  bigPictureElement.classList.add('hidden');
-  bigPictureElement.querySelector('.social__comment-count').classList.remove('hidden');
-  bigPictureElement.querySelector('.comments-loader').classList.remove('hidden');
+  bigPicture.classList.add('hidden');
+  bigPicture.querySelector('.social__comment-count').classList.remove('hidden');
+  bigPicture.querySelector('.comments-loader').classList.remove('hidden');
   document.querySelector('body').classList.remove('modal-open');
   resetComments();
 };
@@ -38,7 +38,7 @@ const generateErrorMessage = (message) => {
   document.querySelector('body').append(error);
 };
 
-const renderPictures = () => {
+const generatePosts = () => {
   tempPosts.forEach((post) => picturesElement.removeChild(post));
   tempPosts = [];
   newPosts.forEach((post) => {
@@ -54,7 +54,7 @@ const renderPictures = () => {
     });
   });
 
-  bigPictureElement.querySelector('.big-picture__cancel').addEventListener('click', () => {
+  bigPicture.querySelector('.big-picture__cancel').addEventListener('click', () => {
     closeBigPicture();
   }, { once: true });
 
@@ -78,7 +78,7 @@ const changeFilter = (posts, deb) => {
           defaultFilter.classList.remove('img-filters__button--active');
           randomFilter.classList.add('img-filters__button--active');
           discussedFilter.classList.remove('img-filters__button--active');
-          newPosts = getRandomElements(newPosts, COUNT_OF_RANDOM_POSTS);
+          newPosts = getRandomElem(newPosts, COUNT_OF_RANDOM_POSTS);
           break;
         case 'filter-discussed':
           defaultFilter.classList.remove('img-filters__button--active');
@@ -94,8 +94,8 @@ const changeFilter = (posts, deb) => {
 const renderPosts = (posts) => {
     document.querySelector('.img-filters').classList.remove('img-filters--inactive');
     newPosts = [...posts];
-    createPosts();
-    changeFilter(posts, debounce(() => createPosts(), TIMEOUT_DELAY));
+    generatePosts();
+    changeFilter(posts, debounce(() => generatePosts(), TIMEOUT_DELAY));
 };
   
 export { renderPosts, generateErrorMessage };

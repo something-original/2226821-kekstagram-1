@@ -1,10 +1,10 @@
-import { renderPictures, generateErrorMessage } from './rendering.js';
-import { getData } from './api.js';
+import { renderPosts, generateErrorMessage } from './rendering.js';
+import { get } from './api.js';
 import { addForm } from './userForm.js';
-import { validate } from './validation.js';
+import { funValidate } from './validation.js';
 import { imgLoading } from './image-loading';
 
-getData(renderPictures, generateErrorMessage);
+get(renderPosts, generateErrorMessage);//get info from the server
 addForm();
-validate();
+funValidate();
 imgLoading();

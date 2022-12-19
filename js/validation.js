@@ -1,4 +1,4 @@
-import { isEscapeKey, MAX_COMMENT_LENGTH, COMMENTS_REGEX as regex, isUnderMaximum } from './util.js';
+import { isEscapeKey, MAX_COMMENT_LENGTH, HASHTAG_REGEX as regex, isUnderMaximum } from './util.js';
 
 const textHashtags = document.querySelector('.text__hashtags');
 const textDescription = document.querySelector('.text__description');
@@ -42,7 +42,7 @@ const onDescriptionKeyDown = (evt) => {
   }
 };
 
-const validate = () => {
+const funValidate = () => {
   textHashtags.addEventListener('keydown', onHashTagsKeyDown);
   textDescription.addEventListener('keydown', onDescriptionKeyDown);
 
@@ -52,4 +52,4 @@ const validate = () => {
 
 const isValid = () => pristine.validate();
 
-export { validate, isValid };
+export { funValidate,  isValid };
