@@ -1,4 +1,9 @@
 import {createDescriptions} from './data.js'
 import { pictureRendering } from './rendering.js';
-const descriptions = createDescriptions();
-pictureRendering(descriptions);
+import { getData } from './api.js';
+import { addForm } from './userForm.js';
+import { validate } from './validation.js';
+
+getData(pictureRendering, generateErrorMessage);
+addForm();
+validate();
