@@ -5,12 +5,12 @@ const textDescription = document.querySelector('.text__description');
 const imgUploadForm = document.querySelector('.img-upload__form');
 
 const defaultConfig = {
-    classTo: 'img-upload__field-wrapper',
-    errorClass: 'img-upload__item--invalid',
-    successClass: 'img-upload__item--valid',
-    errorTextParent: 'img-upload__field-wrapper',
-    errorTextTag: 'div',
-    errorTextClass: 'img-upload__error'
+  classTo: 'img-upload__field-wrapper',
+  errorClass: 'img-upload__item--invalid',
+  successClass: 'img-upload__item--valid',
+  errorTextParent: 'img-upload__field-wrapper',
+  errorTextTag: 'div',
+  errorTextClass: 'img-upload__error'
 };
 
 const pristine = new Pristine(imgUploadForm, defaultConfig, false);
@@ -20,7 +20,7 @@ const hashtagChecker = (value) => {
   if (!value) {
     return true;
   }
-  const hashtag = value.split(" ");
+  const hashtag = value.split(' ');
   for (let i = 0; i < hashtag.length; i++) {
     if (!regex.test(hashtag[i])) {
       return false;

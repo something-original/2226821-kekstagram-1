@@ -7,18 +7,18 @@ const scaleControlBigger = imgUploadScale.querySelector('.scale__control--bigger
 let scale = parseInt(scaleControlValue.value.replace('%', ''), 10);
 
 const transformScale = (sc) => {
-    scaleControlValue.value = `${scale}%`;
-    imgUploadPreview.style = `transform: scale(${scale / 100})`;
-}
+  scaleControlValue.value = `${sc}%`;
+  imgUploadPreview.style = `transform: scale(${sc / 100})`;
+};
 
 const upScale = () => {
-    scale + 25 <= 100 ? scale += 25 : scale = 100;
-    transformScale(scale);
+  scale = scale + 25 <= 100 ? scale + 25 : 100;
+  transformScale(scale);
 };
 
 const downScale = () => {
-    scale - 25 < 25 ? scale = 25 : scale -= 25;
-    transformScale(scale);
+  scale = scale - 25 < 25 ? 25 : scale - 25;
+  transformScale(scale);
 };
 
 scaleControlBigger.addEventListener('click', upScale);

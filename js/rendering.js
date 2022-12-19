@@ -18,7 +18,7 @@ let tempPosts = [];
 
 const removeComments = () => {
   for (let i = 0; cmts.length; i++) {
-    let cmt = document.querySelector('.social__comment');
+    const cmt = document.querySelector('.social__comment');
     cmt.remove();
   }
 };
@@ -66,36 +66,36 @@ const generatePosts = () => {
 };
 
 const changeFilter = (posts, deb) => {
-    imageFiltersForm.addEventListener('click', (evt) => {
-      newPosts = [...posts];
-      switch (evt.target.id) {
-        case 'filter-default':
-          defaultFilter.classList.add('img-filters__button--active');
-          randomFilter.classList.remove('img-filters__button--active');
-          discussedFilter.classList.remove('img-filters__button--active');
-          break;
-        case 'filter-random':
-          defaultFilter.classList.remove('img-filters__button--active');
-          randomFilter.classList.add('img-filters__button--active');
-          discussedFilter.classList.remove('img-filters__button--active');
-          newPosts = getRandomElem(newPosts, COUNT_OF_RANDOM_POSTS);
-          break;
-        case 'filter-discussed':
-          defaultFilter.classList.remove('img-filters__button--active');
-          randomFilter.classList.remove('img-filters__button--active');
-          discussedFilter.classList.add('img-filters__button--active');
-          newPosts.sort((a, b) => b.comments.length - a.comments.length);
-          break;
-      }
-      deb();
-    });
-  };
-  
-const renderPosts = (posts) => {
-    document.querySelector('.img-filters').classList.remove('img-filters--inactive');
+  imageFiltersForm.addEventListener('click', (evt) => {
     newPosts = [...posts];
-    generatePosts();
-    changeFilter(posts, debounce(() => generatePosts(), TIMEOUT_DELAY));
+    switch (evt.target.id) {
+      case 'filter-default':
+        defaultFilter.classList.add('img-filters__button--active');
+        randomFilter.classList.remove('img-filters__button--active');
+        discussedFilter.classList.remove('img-filters__button--active');
+        break;
+      case 'filter-random':
+        defaultFilter.classList.remove('img-filters__button--active');
+        randomFilter.classList.add('img-filters__button--active');
+        discussedFilter.classList.remove('img-filters__button--active');
+        newPosts = getRandomElem(newPosts, COUNT_OF_RANDOM_POSTS);
+        break;
+      case 'filter-discussed':
+        defaultFilter.classList.remove('img-filters__button--active');
+        randomFilter.classList.remove('img-filters__button--active');
+        discussedFilter.classList.add('img-filters__button--active');
+        newPosts.sort((a, b) => b.comments.length - a.comments.length);
+        break;
+    }
+    deb();
+  });
 };
-  
+
+const renderPosts = (posts) => {
+  document.querySelector('.img-filters').classList.remove('img-filters--inactive');
+  newPosts = [...posts];
+  generatePosts();
+  changeFilter(posts, debounce(() => generatePosts(), TIMEOUT_DELAY));
+};
+
 export { renderPosts, generateErrorMessage };

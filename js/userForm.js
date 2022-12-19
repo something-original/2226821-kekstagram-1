@@ -1,8 +1,8 @@
-import { isEscapeKey } from "./util.js";
-import { scaleControlValue } from "./scale.js";
-import { changeEffect, removeFilter } from "./filters.js";
-import { send } from "./api.js";
-import { isValid } from "./validation.js";
+import { isEscapeKey } from './util.js';
+import { scaleControlValue } from './scale.js';
+import { changeEffect, removeFilter } from './filters.js';
+import { send } from './api.js';
+import { isValid } from './validation.js';
 
 const imageUploadStart  = document.querySelector('.img-upload__start');
 const imageUploadOverlay  = document.querySelector('.img-upload__overlay');
@@ -17,17 +17,6 @@ const imageUploadPreview  = imageUploadOverlay.querySelector('.img-upload__previ
 
 const effectLevelSlider = imageUploadForm.querySelector('.effect-level__slider');
 const imageUploadSubmit = imageUploadForm.querySelector('.img-upload__submit');
-
-const addForm = () => {
-  imageUploadStart.addEventListener('change', () => {
-    imageUploadOverlay.classList.remove('hidden');
-    effectLevelSlider.classList.add('hidden');
-    document.body.classList.add('modal-open');
-    imageUploadForm.addEventListener('change', changeEffect);
-    imageUploadForm.addEventListener('submit', verifyForm);
-    listenerControl();
-  });
-};
 
 const deleteForm = () => {
   imageUploadOverlay.classList.add('hidden');
@@ -46,16 +35,20 @@ const formClosing = (evt) => {
   }
 };
 
+const closeMessage = (message) => {
+  document.body.removeChild(message);
+};
+
 const closeMessageByEscape = (evt, message) => {
   if (isEscapeKey(evt)) {
-    document.body.removeChild(message);
+    closeMessage(message);
     document.addEventListener('keydown', formClosing);
   }
 };
 
 const closeMessageByOutside = (evt, message) => {
   if (evt.target.className === 'error' || evt.target.className === 'success') {
-    document.body.removeChild(message);
+    closeMessage(message);
   }
 };
 
@@ -107,6 +100,17 @@ const listenerControl = () => {
   }, { once: true } );
   scaleControlValue.value ='100%';
   imageUploadPreview.style = `transform: scale(${scaleControlValue})`;
+};
+
+const addForm = () => {
+  imageUploadStart.addEventListener('change', () => {
+    imageUploadOverlay.classList.remove('hidden');
+    effectLevelSlider.classList.add('hidden');
+    document.body.classList.add('modal-open');
+    imageUploadForm.addEventListener('change', changeEffect);
+    imageUploadForm.addEventListener('submit', verifyForm);
+    listenerControl();
+  });
 };
 
 export { addForm };
