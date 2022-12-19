@@ -46,8 +46,8 @@ const validate = () => {
   textHashtags.addEventListener('keydown', onHashTagsKeyDown);
   textDescription.addEventListener('keydown', onDescriptionKeyDown);
 
-  pristine.addValidator(textHashtags, hashtagChecker, 'Hashtag entered incorrectly');
-  pristine.addValidator(textDescription, isUnderMaximum, `The comment length has exceeded the ${MAX_COMMENT_LENGTH} character limit`);
+  pristine.addValidator(textHashtags, hashtagChecker, 'wrong hashtag format');
+  pristine.addValidator(textDescription, isUnderMaximum, `hashtag should contain no more than ${MAX_COMMENT_LENGTH} elements`);
 };
 
 const isValid = () => pristine.validate();

@@ -1,8 +1,8 @@
-import { isEscapeKey } from "./util";
-import { scaleControlValue } from "./scale";
-import { changeEffect, removeFilter } from "./filters";
-import { sendData } from "./api";
-import { isValid } from "./validation";
+import { isEscapeKey } from "./util.js";
+import { scaleControlValue } from "./scale.js";
+import { changeEffect, removeFilter } from "./filters.js";
+import { sendData } from "./api.js";
+import { isValid } from "./validation.js";
 
 const imageUploadStart  = document.querySelector('.img-upload__start');
 const imageUploadOverlay  = document.querySelector('.img-upload__overlay');
@@ -15,7 +15,7 @@ const imageUploadForm  = document.querySelector('.img-upload__form');
 
 const imageUploadPreview  = imageUploadOverlay.querySelector('.img-upload__preview');
 
-const effectLevelSlider  = imageUploadForm.querySelector('.effect-level__slider');
+const effectLevelSlider = imageUploadForm.querySelector('.effect-level__slider');
 const imageUploadSubmit = imageUploadForm.querySelector('.img-upload__submit');
 
 const addForm = () => {
@@ -35,7 +35,7 @@ const deleteForm = () => {
   uploadFile.value = '';
   textDescription.value = '';
   textHashtags.value = '';
-  imageUploadForm .removeEventListener('change', changeEffect);
+  imageUploadForm.removeEventListener('change', changeEffect);
   removeFilter();
 };
 
@@ -70,7 +70,7 @@ const generateMessage = (flag) => {
   const message = messageID.cloneNode(true);
   const button = message.querySelector('button');
   document.body.appendChild(message);
-  button.onclick = () => document.body.removeChild(message);;
+  button.onclick = () => document.body.removeChild(message);
   message.onclick = (evt) => {
     closeMessageByOutside(evt, message);
   };

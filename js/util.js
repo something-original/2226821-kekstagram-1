@@ -11,12 +11,19 @@ const generateRandomNumber = (minimum, maximum) => {
     minimum = Math.ceil(minimum);
     maximum = Math.floor(maximum);
     return Math.floor(Math.random() *  maximum - minimum + 1) + minimum;
-  };
-  
+};
   // eslint-disable-next-line no-unused-vars
 const isUnderMaximum = (string, maxLength) => maxLength >= (string.length);
   
-const getRandomElem = (elements) => elements[generateRandomNumber(0, elements.length - 1)];
+const getRandomElem = (elements, count) => {
+  const result = [];
+  for (let i = 0; i < count; i++) {
+    const randElem = elements[generateRandomNumber(0, elements.length - 1)];
+    result.push(randElem);
+    array.splice(array.indexOf(randElem), 1);
+  }
+  return result;
+};
    
 const getRandomId = (arrayOfNum) => {
   for (let i = 0; i < arrayOfNum.length; i++) {
@@ -29,4 +36,12 @@ const getRandomId = (arrayOfNum) => {
 
 const isEscapeKey = (evt) => evt.key === 'Escape';
 
-export {MAX_COMMENT_LENGTH, COMMENTS_REGEX, generateRandomNumber, isUnderMaximum, getRandomElem, addComment, createDescription, getRandomId, isEscapeKey};
+const debounce = (callback, timeoutDelay = 500) => {
+  let timeoutId;
+  return(...rest) => {
+    clearTimeout(timeoutId);
+    timeoutId = setTimeout(() => callback.apply(this, rest), timeoutDelay)
+  }
+};
+
+export {MAX_COMMENT_LENGTH, COMMENTS_REGEX, generateRandomNumber, isUnderMaximum, getRandomElem, addComment, createDescription, getRandomId, isEscapeKey, debounce};
