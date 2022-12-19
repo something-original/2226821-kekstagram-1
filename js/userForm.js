@@ -18,6 +18,17 @@ const imageUploadPreview  = imageUploadOverlay.querySelector('.img-upload__previ
 const effectLevelSlider  = imageUploadForm.querySelector('.effect-level__slider');
 const imageUploadSubmit = imageUploadForm.querySelector('.img-upload__submit');
 
+const addForm = () => {
+  imageUploadStart.addEventListener('change', () => {
+    imageUploadOverlay.classList.remove('hidden');
+    effectLevelSlider.classList.add('hidden');
+    document.body.classList.add('modal-open');
+    imageUploadForm.addEventListener('change', changeEffect);
+    imageUploadForm.addEventListener('submit', verifyForm);
+    listenerControl();
+  });
+};
+
 const deleteForm = () => {
   imageUploadOverlay.classList.add('hidden');
   document.body.classList.remove('modal-open');
@@ -35,20 +46,16 @@ const formClosing = (evt) => {
   }
 };
 
-const closeMessage = (message) => {
-  document.body.removeChild(message);
-};
-
 const closeMessageByEscape = (evt, message) => {
   if (isEscapeKey(evt)) {
-    closeMessage(message);
+    document.body.removeChild(message);
     document.addEventListener('keydown', formClosing);
   }
 };
 
 const closeMessageByOutside = (evt, message) => {
   if (evt.target.className === 'error' || evt.target.className === 'success') {
-    closeMessage(message);
+    document.body.removeChild(message);
   }
 };
 
@@ -63,7 +70,7 @@ const generateMessage = (flag) => {
   const message = messageID.cloneNode(true);
   const button = message.querySelector('button');
   document.body.appendChild(message);
-  button.onclick = () => closeMessage(message);
+  button.onclick = () => document.body.removeChild(message);;
   message.onclick = (evt) => {
     closeMessageByOutside(evt, message);
   };
@@ -94,31 +101,12 @@ const verifyForm = (evt) => {
 
 const listenerControl = () => {
   document.addEventListener('keydown', formClosing);
-  imageUploadOverlay .querySelector('.img-upload__cancel').addEventListener('click', () => {
+  imageUploadOverlay.querySelector('.img-upload__cancel').addEventListener('click', () => {
     deleteForm();
     document.removeEventListener('keydown', formClosing);
   }, { once: true } );
   scaleControlValue.value ='100%';
-  imageUploadPreview .style = `transform: scale(${scaleControlValue})`;
-};
-
-const addForm = () => {
-  imageUploadStart.addEventListener('change', () => {
-    imageUploadOverlay.classList.remove('hidden');
-    effectLevelSlider.classList.add('hidden');
-    document.body.classList.add('modal-open');
-    imageUploadForm.addEventListener('change', changeEffect);
-    listenerControl();
-});
-
-imageUploadStart.addEventListener('change', () => {
-    imageUploadOverlay.classList.remove('hidden');
-    effectLevelSlider.classList.add('hidden');
-    document.body.classList.add('modal-open');
-    imageUploadForm.addEventListener('change', changeEffect);
-    imageUploadForm.addEventListener('submit', verifyForm);
-    listenerControl();
-  });
+  imageUploadPreview.style = `transform: scale(${scaleControlValue})`;
 };
 
 export { addForm };

@@ -1,7 +1,11 @@
+const MIN_INTENSITY = 0;
+const MAX_INTENSITY = 100;
+const START_INTENSITY = 50;
+
 const imgUploadForm = document.querySelector('.img-upload__form');
 const imgUploadPreview = imgUploadForm.querySelector('.img-upload__preview');
-const effectLevelSlider = imgUploadForm.querySelector('.effect-level__slider');
-const effectLevelValue = imgUploadForm.querySelector('.effect-level__value');
+const filterIntensitySlider = imgUploadForm.querySelector('.effect-level__slider');
+const filterIntensityValue = imgUploadForm.querySelector('.effect-level__value');
 
 const FILTERS = {
   'chrome': { filter: 'grayscale( )', options: { min: 0, max: 1, start: 1, step: 0.1 } },
@@ -11,7 +15,7 @@ const FILTERS = {
   'heat': { filter: 'brightness( )', options: { min: 1, max: 3, start: 3, step: 0.1 } },
 };
 
-noUiSlider.create(effectLevelSlider, { range: { min: 0, max: 0 }, start: 0 });
+noUiSlider.create(filterIntensitySlider, { range: { min: MIN_INTENSITY, max: MAX_INTENSITY }, start: START_INTENSITY });
 
 let previousFilter = 'effects__preview--none';
 
@@ -19,7 +23,7 @@ const removeFilter = () => {
   imgUploadPreview.classList.remove(previousFilter);
   imgUploadPreview.classList.add('effects__preview--none');
   imgUploadPreview.style.filter = 'none';
-  effectLevelSlider.classList.toggle('hidden');
+  filterIntensitySlider.classList.toggle('hidden');
   previousFilter = 'effects__preview--none';
 };
 
@@ -34,23 +38,23 @@ const changeFilter = (evt) => {
 
     if (newEffectName === 'none') {
       imgUploadPreview.style.filter = 'none';
-      effectLevelSlider.classList.toggle('hidden');
+      filterIntensitySlider.classList.toggle('hidden');
     }
     else {
-      if (effectLevelSlider.classList.contains('hidden')) {
-        effectLevelSlider.classList.remove('hidden');
+      if (filterIntensitySlider.classList.contains('hidden')) {
+        filterIntensitySlider.classList.remove('hidden');
       }
 
       const options = FILTERS[newEffectName].options;
-      effectLevelSlider.noUiSlider.updateOptions({
+      filterIntensitySlider.noUiSlider.updateOptions({
         range: { min: options.min, max: options.max},
         start: options.start,
         step: options.step
       });
 
-      effectLevelSlider.noUiSlider.on('update', () => {
-        effectLevelValue.value = effectLevelSlider.noUiSlider.get();
-        imgUploadPreview.style.filter = FILTERS[newEffectName].filter.replace(' ', effectLevelValue.value);
+      filterIntensitySlider.noUiSlider.on('update', () => {
+        filterIntensityValue.value = filterIntensitySlider.noUiSlider.get();
+        imgUploadPreview.style.filter = FILTERS[newEffectName].filter.replace(' ', filterIntensityValue.value);
       });
     }
   }

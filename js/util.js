@@ -1,3 +1,6 @@
+const MAX_COMMENT_LENGTH = 140;
+const COMMENTS_REGEX =  /^#[0-9a-zA-Zа-яА-ЯёЁ]{1,19}$/;
+
 const generateRandomNumber = (minimum, maximum) => {
     if (minimum >= maximum) {
       throw new Error('Max string is less or equals the minimum string');
@@ -26,4 +29,4 @@ const getRandomId = (arrayOfNum) => {
 
 const isEscapeKey = (evt) => evt.key === 'Escape';
 
-export {generateRandomNumber, isUnderMaximum, getRandomElem, addComment, createDescription, getRandomId, isEscapeKey};
+export {MAX_COMMENT_LENGTH, COMMENTS_REGEX, generateRandomNumber, isUnderMaximum, getRandomElem, addComment, createDescription, getRandomId, isEscapeKey};

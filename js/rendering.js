@@ -3,7 +3,7 @@ import { isEscape } from './util.js';
 
 const pictureTemplate = document.querySelector('#picture').content;
 const pictureElement  = pictureTemplate.querySelector('.picture');
-const picturesElement  = document.querySelector('.pictures');
+const picturesElement = document.querySelector('.pictures');
 const cmts = document.querySelectorAll('.social__comment');
 
 const removeComments = () => {
@@ -28,7 +28,7 @@ const generateErrorMessage = (message) => {
   document.querySelector('body').append(error);
 };
 
-const renderPosts = (posts) => {
+const renderPictures = (posts) => {
   posts.forEach((post) => {
     const pictureClone = pictureElement.cloneNode(true);
     pictureClone.querySelector('.picture__img').src = post.url;
@@ -50,7 +50,6 @@ const renderPosts = (posts) => {
       closeBigPicture();
     }
   });
-    pictureListElement.appendChild(pictureFragment);
 };
 
-export { renderPosts, generateErrorMessage };
+export { renderPictures, generateErrorMessage };
