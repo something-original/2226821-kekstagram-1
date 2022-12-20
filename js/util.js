@@ -12,7 +12,7 @@ const generateRandomNumber = (minimum, maximum) => {
   maximum = Math.floor(maximum);
   return Math.floor(Math.random() *  maximum - minimum + 1) + minimum;
 };
-  // eslint-disable-next-line no-unused-vars
+
 const isUnderMaximum = (string, maxLength) => maxLength >= (string.length);
 
 const getRandomElem = (elements, count) => {

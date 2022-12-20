@@ -1,4 +1,4 @@
-import { addBigPicture, bigPicture, resetComments } from './big-pictures';
+import { addBigPicture, bigPicture, resetComments } from './big-pictures.js';
 import { isEscapeKey, getRandomElem, debounce } from './util.js';
 
 const TIMEOUT_DELAY = 500;

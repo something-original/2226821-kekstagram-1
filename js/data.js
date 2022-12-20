@@ -1,4 +1,4 @@
-import { generateRandomNumber, getRandomElem, getRandomId } from './util';
+import { generateRandomNumber, getRandomElem, getRandomId } from './util.js';
 
 const PHOTOS_NUM = 25;
 const LIKES = {min: 15, max: 200};
