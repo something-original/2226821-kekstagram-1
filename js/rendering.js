@@ -1,33 +1,37 @@
-import { addBigPicture, bigPicture, resetComments } from './big-pictures.js';
-import { isEscapeKey, getRandomElem, debounce } from './util.js';
+import { addBigPicture, bigPictureElement, resetComments } from './big-picture.js';
+import { isEscape, getRandomElements, debounce } from './util.js';
 
 const TIMEOUT_DELAY = 500;
-const COUNT_OF_RANDOM_POSTS = 10;
+const NUMBER_OF_RANDOM_POSTS = 10;
 
-const pictureTemplate = document.querySelector('#picture').content;
-const pictureElement  = pictureTemplate.querySelector('.picture');
-const picturesElement = document.querySelector('.pictures');
-const imageFiltersForm = document.querySelector('.img-filters__form');
-const defaultFilter = document.querySelector('#filter-default');
-const randomFilter = document.querySelector('#filter-random');
-const discussedFilter = document.querySelector('filter-discussed');
-const cmts = document.querySelectorAll('.social__comment');
+const CONTENT_FILTERS = {
+  'DEFAULT': 'filter-default',
+  'RANDOM' : 'filter-random',
+  'DISCUSSED' : 'filter-discussed'
+};
+
+const pictureTemplateElement = document.querySelector('#picture').content;
+const pictureElement  = pictureTemplateElement.querySelector('.picture');
+const picturesElement  = document.querySelector('.pictures');
+const imageFiltersFormElement = document.querySelector('.img-filters__form');
+const defaultFilterElement = document.querySelector('#filter-default');
+const randomFilterElement = document.querySelector('#filter-random');
+const discussedFilterElement = document.querySelector('#filter-discussed');
 
 let newPosts = [];
-let tempPosts = [];
+let tmpPosts = [];
 
 const removeComments = () => {
-  for (let i = 0; cmts.length; i++) {
-    const cmt = document.querySelector('.social__comment');
-    cmt.remove();
+  for (let i = 0; document.querySelectorAll('.social__comment').length; i++) {
+    document.querySelector('.social__comment').remove();
   }
 };
 
 const closeBigPicture = () => {
   removeComments();
-  bigPicture.classList.add('hidden');
-  bigPicture.querySelector('.social__comment-count').classList.remove('hidden');
-  bigPicture.querySelector('.comments-loader').classList.remove('hidden');
+  bigPictureElement.classList.add('hidden');
+  bigPictureElement.querySelector('.social__comment-count').classList.remove('hidden');
+  bigPictureElement.querySelector('.comments-loader').classList.remove('hidden');
   document.querySelector('body').classList.remove('modal-open');
   resetComments();
 };
@@ -38,52 +42,52 @@ const generateErrorMessage = (message) => {
   document.querySelector('body').append(error);
 };
 
-const generatePosts = () => {
-  tempPosts.forEach((post) => picturesElement.removeChild(post));
-  tempPosts = [];
+const createPosts = () => {
+  tmpPosts.forEach((post) => picturesElement.removeChild(post));
+  tmpPosts = [];
   newPosts.forEach((post) => {
     const pictureClone = pictureElement.cloneNode(true);
     pictureClone.querySelector('.picture__img').src = post.url;
     pictureClone.querySelector('.picture__likes').textContent = post.likes;
     pictureClone.querySelector('.picture__comments').textContent = post.comments.length;
     picturesElement.appendChild(pictureClone);
-    tempPosts.push(pictureClone);
+    tmpPosts.push(pictureClone);
     pictureClone.addEventListener('click', () => {
       removeComments();
       addBigPicture(post);
     });
   });
 
-  bigPicture.querySelector('.big-picture__cancel').addEventListener('click', () => {
+  bigPictureElement.querySelector('.big-picture__cancel').addEventListener('click', () => {
     closeBigPicture();
-  }, { once: true });
+  });
 
   document.addEventListener('keydown', (evt) => {
-    if (isEscapeKey(evt)) {
+    if (isEscape(evt)) {
       closeBigPicture();
     }
   });
 };
 
 const changeFilter = (posts, deb) => {
-  imageFiltersForm.addEventListener('click', (evt) => {
+  imageFiltersFormElement.addEventListener('click', (evt) => {
     newPosts = [...posts];
     switch (evt.target.id) {
-      case 'filter-default':
-        defaultFilter.classList.add('img-filters__button--active');
-        randomFilter.classList.remove('img-filters__button--active');
-        discussedFilter.classList.remove('img-filters__button--active');
+      case CONTENT_FILTERS['DEFAULT']:
+        defaultFilterElement.classList.add('img-filters__button--active');
+        randomFilterElement.classList.remove('img-filters__button--active');
+        discussedFilterElement.classList.remove('img-filters__button--active');
         break;
-      case 'filter-random':
-        defaultFilter.classList.remove('img-filters__button--active');
-        randomFilter.classList.add('img-filters__button--active');
-        discussedFilter.classList.remove('img-filters__button--active');
-        newPosts = getRandomElem(newPosts, COUNT_OF_RANDOM_POSTS);
+      case CONTENT_FILTERS['RANDOM']:
+        defaultFilterElement.classList.remove('img-filters__button--active');
+        randomFilterElement.classList.add('img-filters__button--active');
+        discussedFilterElement.classList.remove('img-filters__button--active');
+        newPosts = getRandomElements(newPosts, NUMBER_OF_RANDOM_POSTS);
         break;
-      case 'filter-discussed':
-        defaultFilter.classList.remove('img-filters__button--active');
-        randomFilter.classList.remove('img-filters__button--active');
-        discussedFilter.classList.add('img-filters__button--active');
+      case CONTENT_FILTERS['DISCUSSED']:
+        defaultFilterElement.classList.remove('img-filters__button--active');
+        randomFilterElement.classList.remove('img-filters__button--active');
+        discussedFilterElement.classList.add('img-filters__button--active');
         newPosts.sort((a, b) => b.comments.length - a.comments.length);
         break;
     }
@@ -94,8 +98,8 @@ const changeFilter = (posts, deb) => {
 const renderPosts = (posts) => {
   document.querySelector('.img-filters').classList.remove('img-filters--inactive');
   newPosts = [...posts];
-  generatePosts();
-  changeFilter(posts, debounce(() => generatePosts(), TIMEOUT_DELAY));
+  createPosts();
+  changeFilter(posts, debounce(() => createPosts(), TIMEOUT_DELAY));
 };
 
 export { renderPosts, generateErrorMessage };

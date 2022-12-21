@@ -1,8 +1,8 @@
-import { isEscapeKey, MAX_COMMENT_LENGTH, HASHTAG_REGEX as regex, isUnderMaximum } from './util.js';
+import { isEscape, checkCommLength, regex, MAX_NUMBER_OF_HASHTAGS, MAX_COMMENT_LENGTH } from './util.js';
 
-const textHashtags = document.querySelector('.text__hashtags');
-const textDescription = document.querySelector('.text__description');
-const imgUploadForm = document.querySelector('.img-upload__form');
+const textHashTagsElement = document.querySelector('.text__hashtags');
+const textDescriptionElement = document.querySelector('.text__description');
+const imageUploadFormElement = document.querySelector('.img-upload__form');
 
 const defaultConfig = {
   classTo: 'img-upload__field-wrapper',
@@ -13,43 +13,36 @@ const defaultConfig = {
   errorTextClass: 'img-upload__error'
 };
 
-const pristine = new Pristine(imgUploadForm, defaultConfig, false);
+const pristine = new Pristine(imageUploadFormElement, defaultConfig, false);
 
-const hashtagChecker = (value) => {
-  value = value.toLowerCase().trim();
-  if (!value) {
+const checkHashtagFormat = (hashtagSequence) => {
+  hashtagSequence = hashtagSequence.toLowerCase().trim();
+  if (!hashtagSequence) {
     return true;
   }
-  const hashtag = value.split(' ');
-  for (let i = 0; i < hashtag.length; i++) {
-    if (!regex.test(hashtag[i])) {
+  const hashtagArray = hashtagSequence.split(' ');
+  for (const hashtag of hashtagArray) {
+    if (!regex.test(hashtag)) {
       return false;
     }
   }
-  const hashtags = [...new Set(hashtag)];
-  return (hashtag.length <= 5 && hashtag.length === hashtags.length);
+  const hashtags = [...new Set(hashtagArray)];
+  return hashtagArray.length <= MAX_NUMBER_OF_HASHTAGS && hashtagArray.length === hashtags.length;
 };
 
-const onHashTagsKeyDown = (evt) => {
-  if (isEscapeKey(evt)) {
+const dontCloseOnEsc = (evt) => {
+  if (isEscape(evt)) {
     evt.stopPropagation();
   }
 };
 
-const onDescriptionKeyDown = (evt) => {
-  if (isEscapeKey(evt)) {
-    evt.stopPropagation();
-  }
-};
-
-const funValidate = () => {
-  textHashtags.addEventListener('keydown', onHashTagsKeyDown);
-  textDescription.addEventListener('keydown', onDescriptionKeyDown);
-
-  pristine.addValidator(textHashtags, hashtagChecker, 'wrong hashtag format');
-  pristine.addValidator(textDescription, isUnderMaximum, `hashtag should contain no more than ${MAX_COMMENT_LENGTH} elements`);
+const validateInfo = () => {
+  textHashTagsElement.addEventListener('keydown', dontCloseOnEsc);
+  textDescriptionElement.addEventListener('keydown', dontCloseOnEsc);
+  pristine.addValidator(textHashTagsElement, checkHashtagFormat, 'Неверный формат хештега');
+  pristine.addValidator(textDescriptionElement, checkCommLength, `Подпись не может содержать более ${MAX_COMMENT_LENGTH} символов`);
 };
 
 const isValid = () => pristine.validate();
 
-export { funValidate,  isValid };
+export { validateInfo, isValid };

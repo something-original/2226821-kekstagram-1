@@ -6,25 +6,31 @@ const URLS = {
 const get = (onSuccess, onFail) => {
   fetch(URLS['GET'])
     .then((response) => response.json())
-    .then((posts) => { 
-      onSuccess(posts); 
+    .then((posts) => {
+      onSuccess(posts);
     })
-    .catch(() => { 
-      onFail('Something went wrong while loading'); 
+    .catch(() => {
+      onFail('Ошибка загрузки! Перезагрузите страницу!');
     });
 };
 
 const send = (onSuccess, onFail, body) => {
-  fetch(URLS['POST'], { method: 'POST', body, }, )
+  fetch(
+    URLS['POST'],
+    {
+      method: 'POST',
+      body,
+    },
+  )
     .then((response) => {
       if (response.ok) {
         onSuccess();
       } else {
-        onFail('Something went wrong while sending');
+        onFail('Ошибка при отправке! Перезагрузите страницу!');
       }
     })
     .catch(() => {
-      onFail('Something went wrong while sending');
+      onFail('Ошибка при отправке! Перезагрузите страницу!');
     });
 };
 

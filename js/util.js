@@ -1,47 +1,39 @@
+const REGEX = /^#[0-9a-zA-Zа-яА-ЯёЁ]{1,19}$/;
 const MAX_COMMENT_LENGTH = 140;
-const HASHTAG_REGEX =  /^#[0-9a-zA-Zа-яА-ЯёЁ]{1,19}$/;
+const MAX_NUMBER_OF_HASHTAGS = 5;
 
-const generateRandomNumber = (minimum, maximum) => {
-  if (minimum >= maximum) {
-    throw new Error('Max string is less or equals the minimum string');
-  }
-  if (minimum < 0 || maximum < 0) {
-    throw new Error('Negative range');
-  }
-  minimum = Math.ceil(minimum);
-  maximum = Math.floor(maximum);
-  return Math.floor(Math.random() *  maximum - minimum + 1) + minimum;
-};
-
-const isUnderMaximum = (string, maxLength) => maxLength >= (string.length);
-
-const getRandomElem = (elements, count) => {
-  const result = [];
-  for (let i = 0; i < count; i++) {
-    const randElem = elements[generateRandomNumber(0, elements.length - 1)];
-    result.push(randElem);
-    elements.splice(elements.indexOf(randElem), 1);
-  }
-  return result;
-};
-
-const getRandomId = (arrayOfNum) => {
-  for (let i = 0; i < arrayOfNum.length; i++) {
-    if (!arrayOfNum[i]) {
-      arrayOfNum[i] = true;
-      return i + 1;
-    }
+const getRandomInt = (start, end) => {
+  if (start >= end) {
+    throw new Error('The "start" value must be less than the "end" value.');
+  } else if (start < 0 || end < 0) {
+    throw new Error('A range with negative numbers is not allowed.');
+  } else {
+    const min = Math.ceil(start);
+    const max = Math.floor(end);
+    return Math.floor(Math.random() * (max - min + 1)) + min;
   }
 };
 
-const isEscapeKey = (evt) => evt.key === 'Escape';
+const isEscape = (evt) => evt.key === 'Escape';
+
+const checkCommLength = (string) => string.length <= MAX_COMMENT_LENGTH;
 
 const debounce = (callback, timeoutDelay = 500) => {
   let timeoutId;
-  return(...rest) => {
+  return (...rest) => {
     clearTimeout(timeoutId);
     timeoutId = setTimeout(() => callback.apply(this, rest), timeoutDelay);
   };
 };
 
-export {MAX_COMMENT_LENGTH, HASHTAG_REGEX, generateRandomNumber, isUnderMaximum, getRandomElem, getRandomId, isEscapeKey, debounce};
+const getRandomElements = (array, count) => {
+  const result = [];
+  for (let i = 0; i < count; i++) {
+    const randomElement = array[getRandomInt(0, array.length - 1)];
+    result.push(randomElement);
+    array.splice(array.indexOf(randomElement), 1);
+  }
+  return result;
+};
+
+export { getRandomInt, isEscape, debounce, getRandomElements, REGEX as regex, MAX_COMMENT_LENGTH, MAX_NUMBER_OF_HASHTAGS, checkCommLength };
