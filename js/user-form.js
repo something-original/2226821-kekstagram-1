@@ -1,5 +1,5 @@
 import { isEscape } from './util.js';
-import { scaleControlValue } from './scale.js';
+import { scaleControlValueElement, resetScale } from './scale.js';
 import { changeEffect, removeFilter } from './filters.js';
 import { send } from './api.js';
 import { isValid } from './validation.js';
@@ -22,6 +22,9 @@ const deleteForm = () => {
   textHashtagsElement.value = '';
   imageUploadFormElement.removeEventListener('change', changeEffect);
   removeFilter();
+  resetScale();
+  scaleControlValueElement.value ='100%';
+  imageUploadPreviewElement.style = `transform: scale(${scaleControlValueElement.value})`;
 };
 
 const closeForm = (evt) => {
@@ -90,8 +93,7 @@ const controlingListener = () => {
     deleteForm();
     document.removeEventListener('keydown', closeForm);
   }, { once: true } );
-  scaleControlValue.value ='100%';
-  imageUploadPreviewElement.style = `transform: scale(${scaleControlValue})`;
+  
 };
 
 const addForm = () => {

@@ -25,7 +25,11 @@ const scaleDown = () => {
   transformScale(scale);
 };
 
+const resetScale = () => {
+  scale = 100;
+}
+
 scaleControlSmallerElement.addEventListener('click', scaleDown);
 scaleControlBiggerElement.addEventListener('click', scaleUp);
 
-export { scaleControlValueElement as scaleControlValue };
+export { scaleControlValueElement, resetScale };
